@@ -69,7 +69,7 @@ const Application = () => {
     },
   ];
   return (
-    <div className="flex flex-col gap-4 w-full h-full">
+    <div className="flex flex-col gap-4 w-full h-full px-4 py-4">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-semibold">Hello {name}!</h1>
         <Button

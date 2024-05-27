@@ -12,27 +12,64 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 
-export const EditorComponent = () => {
+export const EditorComponent = ({ data, id }) => {
   const [language, setLanguage] = useState("javascript");
   const { theme } = useTheme();
 
-  const [data, setData] = useState("// some comment");
+  const [template, setTemplate] = useState("");
+  const [loadingResult, setLoadingResult] = useState(false);
+  const [result, setResult] = useState([]);
+
+  useEffect(() => {
+    // data passed here is an array of objects, which includes the language and the template code, so we need to extract the template code
+    if (data) {
+      const templateCode = data.find((item) => item.language === language);
+      setTemplate(templateCode.code);
+    }
+  }, [data, language]);
+
+  // post the code to the API to run it. Route is ${process.env.NEXT_PUBLIC_API_URL}/problems/run. Send the language and the code. Don't stringify the data as the id is a number
+  const runCode = async () => {
+    setLoadingResult(true);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/problems/run`, {
+      method: "POST",
+      // don;t stringify the data as the id is a number
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // {message: 'Unexpected end of JSON input', problemId: 1}
+      body: JSON.stringify({ language, code: template, id: id }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setResult(data);
+        setLoadingResult(false);
+      });
+  };
+
+  const handleLanguageChange = (value) => {
+    // when the language is changed, set the new language and update the template code
+    setLanguage(value);
+  };
+
+  const handleEditorChange = (value, event) => {
+    // change the template code when the editor value changes, and do it when the language is changed
+    setTemplate(value);
+  };
 
   const [editorInstance, setEditorInstance] = useState(null);
   const [monacoInstance, setMonacoInstance] = useState(null);
-
-  const handleEditorChange = (value, event) => {
-    setData(value);
-  };
-
-  console.log(data);
-
-  // Stringify the data and send it to the parent component
-  useEffect(() => {
-    const dataString = JSON.stringify(data);
-    console.log(dataString);
-  }, [data]);
 
   const handleEditorDidMount = (editor, monaco) => {
     // console.log("onMount: the editor instance:", editor);
@@ -79,43 +116,89 @@ export const EditorComponent = () => {
   }, [theme, monacoInstance]);
 
   const handleEditorWillMount = (monaco) => {
-    // console.log("beforeMount: the monaco instance:", monaco);
+    console.log("beforeMount: the monaco instance:", monaco);
   };
 
   const handleEditorValidation = (markers) => {
-    // model markers
-    // markers.forEach(marker => console.log('onValidate:', marker.message));
-  };
-
-  const handleLanguageChange = (value) => {
-    setLanguage(value);
-    editorInstance.getModel().updateOptions({ language: value });
+    markers.forEach((marker) => console.log("onValidate:", marker.message));
   };
 
   return (
-    <div className="h-full w-3/4 flex flex-col gap-2">
-      <div className="min-h-[48px] w-full flex justify-between items-center px-4 pt-2">
-        <Select onValueChange={handleLanguageChange}>
-          <SelectTrigger className="w-1/4">
+    <div className="h-full w-full flex flex-col gap-1">
+      <div className="min-h-[42px] w-full flex justify-between items-center px-4 pt-2">
+        <Select onValueChange={handleLanguageChange} className="text-xs">
+          <SelectTrigger className="text-xs w-1/5 h-[32px] rounded-sm">
             <SelectValue placeholder={language} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="javascript">JavaScript</SelectItem>
-            <SelectItem value="typescript">TypeScript</SelectItem>
-            <SelectItem value="python">Python</SelectItem>
-            <SelectItem value="java">Java</SelectItem>
-            <SelectItem value="csharp">C#</SelectItem>
           </SelectContent>
         </Select>
-        <Button variant="outline" className="w-28">
-          Run
-        </Button>
+        <div className="flex gap-1">
+          <Sheet>
+            <SheetTrigger className="w-16 text-xs h-[32px] rounded-sm">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={runCode}
+                className="w-16 text-xs h-[32px] rounded-sm"
+              >
+                Run
+              </Button>
+            </SheetTrigger>
+            {loadingResult ? (
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Result of your submission</SheetTitle>
+                </SheetHeader>
+                <div className="w-full h-32 flex items-center justify-center">
+                  Loading...
+                </div>
+              </SheetContent>
+            ) : (
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Result of your submission</SheetTitle>
+                  <SheetDescription>
+                    The result of your submission is shown below
+                  </SheetDescription>
+                </SheetHeader>
+                <div className="w-full h-full flex items-center justify-center mt-4">
+                  {
+                    <div className="w-full h-full flex flex-col gap-1">
+                      {result.map((item, index) => (
+                        <div
+                          key={index}
+                          className="w-full h-8 flex items-center justify-between px-2"
+                        >
+                          <span className="text-xs w-1/2">
+                            Output Received: {item.output}
+                          </span>
+                          <span
+                            className={cn(
+                              "text-xs",
+                              item.result === "Accepted"
+                                ? "text-green-500"
+                                : "text-red-500"
+                            )}
+                          >
+                            {item.result}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  }
+                </div>
+              </SheetContent>
+            )}
+          </Sheet>
+        </div>
       </div>
       <div className="h-full w-full">
         <Editor
           options={{
             minimap: { enabled: false },
-            fontSize: 16,
+            fontSize: 12,
             wordWrap: "on",
             scrollBeyondLastLine: false,
             automaticLayout: true,
@@ -126,9 +209,7 @@ export const EditorComponent = () => {
           beforeMount={handleEditorWillMount}
           onValidate={handleEditorValidation}
           language={language}
-          defaultValue={
-            "//Initial Template for javascript\n\n'use strict';\n\nprocess.stdin.resume();\nprocess.stdin.setEncoding('utf-8');\n\nlet inputString = '';\nlet currentLine = 0;\n\nprocess.stdin.on('data', inputStdin => {\n    inputString += inputStdin;\n});\n\nprocess.stdin.on('end', _ => {\n    inputString = inputString.trim().split('\\n').map(string => {\n        return string.trim();\n    });\n    \n    main();\n});\n\nfunction readLine() {\n    return inputString[currentLine++];\n}\n\nfunction printList(res,n){\n    let s=\"\";\n    for(let i=0;i<n;i++){\n        s+=res[i];\n        s+=\" \";\n    }\n    console.log(s);\n}\n\n\nfunction main() {\n    let t = parseInt(readLine());\n    let i = 0;\n    for(;i<t;i++)\n    {\n        let input_ar1 = readLine().split(' ').map(x=>parseInt(x));\n        let n = input_ar1[0];\n        let k = input_ar1[1];\n        let s = readLine();\n        let obj = new Solution();\n        let res = obj.kPalindrome(s, n, k);\n        console.log(res);\n        \n    }\n}// } Driver Code Ends\n\n\n"
-          }
+          defaultValue={template}
           className="h-full w-full mx-2 border border-border bg-background"
         />
       </div>

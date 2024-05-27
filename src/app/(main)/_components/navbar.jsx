@@ -16,8 +16,6 @@ const Navbar = () => {
 
   let currentPath = usePathname();
 
-  console.log(currentPath);
-
   return (
     <div className="h-16 bg-background w-full border-b border-border flex flex-row items-center justify-between px-4">
       <Image src="/assets/logo.svg" alt="Logo" width={32} height={32} />

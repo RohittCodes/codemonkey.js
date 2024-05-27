@@ -2,9 +2,9 @@ import Sidebar from "./_components/sidebar";
 
 const MainLayout = async ({ children }) => {
   return (
-    <div className="flex w-full h-full">
+    <div className="flex w-full h-screen">
       <Sidebar />
-      <div className="h-full w-full bg-background px-4 py-4">{children}</div>
+      <div className="h-full w-full bg-background">{children}</div>
     </div>
   );
 };
