@@ -168,6 +168,7 @@ export const columns = [
       <div className="capitalize truncate">
         <Link
           href={`/app/problems/${row.getValue("problem_id")}`}
+          id={`problem-${row.getValue("problem_id")}`}
           className="hover:underline hover:text-blue-500"
         >
           {row.getValue("title")}

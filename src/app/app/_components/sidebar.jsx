@@ -25,16 +25,16 @@ import { dark } from "@clerk/themes";
 const Sidebar = () => {
   const routes = [
     { name: "App", path: "/app", icon: Home },
-    { name: "Study Planner", path: "/app/plan", icon: NotebookText },
     { name: "Code", path: "/app/problems", icon: CodeXml },
-    { name: "Interview Prep", path: "/app/interview", icon: LandPlot },
     { name: "CodeChimp", path: "/app/codechimp", icon: MessageCircleCode },
+    { name: "Interview Prep", path: "/app/interview", icon: LandPlot },
+    { name: "Study Planner", path: "/app/plan", icon: NotebookText },
   ];
 
   let currentPath = usePathname();
 
   return (
-    <div className="flex flex-col w-16 h-full bg-background border-r border-border justify-between items-center px-4 py-4">
+    <div className="flex flex-col fixed w-16 h-full bg-background border-r border-border justify-between items-center px-4 py-4">
       <div className="flex flex-col items-center gap-4">
         <div className="flex flex-col items-center gap-4">
           <Link href={"/app"}>
@@ -52,7 +52,11 @@ const Sidebar = () => {
               )}
               key={route.name}
             >
-              <Link href={route.path} className="flex flex-col items-center">
+              <Link
+                href={route.path}
+                className="flex flex-col items-center"
+                id={`side-${route.name}`}
+              >
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>

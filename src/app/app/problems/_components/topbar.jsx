@@ -7,9 +7,6 @@ const Topbar = () => {
       <h1 className="text-2xl font-bold">
         <Link href="/app/problems">Problem Set</Link>
       </h1>
-      <Link href="/app/problems/submit">
-        <Button variant="outline">Submit a problem</Button>
-      </Link>
     </div>
   );
 };

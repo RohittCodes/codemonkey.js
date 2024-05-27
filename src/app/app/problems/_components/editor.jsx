@@ -141,6 +141,7 @@ export const EditorComponent = ({ data, id }) => {
                 variant="outline"
                 size="icon"
                 onClick={runCode}
+                id="run-button"
                 className="w-16 text-xs h-[32px] rounded-sm"
               >
                 Run

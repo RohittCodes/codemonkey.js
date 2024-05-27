@@ -18,7 +18,13 @@ const Navbar = () => {
 
   return (
     <div className="h-16 bg-background w-full border-b border-border flex flex-row items-center justify-between px-4">
-      <Image src="/assets/logo.svg" alt="Logo" width={32} height={32} />
+      <Image
+        src="/assets/logo.svg"
+        alt="Logo"
+        width={32}
+        height={32}
+        className="cursor-pointer ml-10"
+      />
       <div className="flex flex-row items-center rounded-full w-1/4 bg-background-2 p-2 ring-1 ring-border h-8 justify-between px-4 gap-4">
         {routes.map((route) => (
           <Link
@@ -40,7 +46,9 @@ const Navbar = () => {
         ))}
       </div>
       <div className="flex flex-row items-center gap-4">
-        <SignInButton>Sign in</SignInButton>
+        <SignInButton className="border border-border rounded-md px-4 py-2 text-sm font-semibold text-text hover:bg-secondary hover:text-white">
+          Sign in
+        </SignInButton>
       </div>
     </div>
   );

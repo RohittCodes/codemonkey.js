@@ -19,7 +19,21 @@ import { TooltipContent } from "@radix-ui/react-tooltip";
 import { BookOpenText, Info } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { ShepherdJourneyProvider, useShepherd } from "react-shepherd";
+import { newSteps } from "./_components/steps";
+
+const tourOptions = {
+  steps: newSteps,
+  defaultStepOptions: {
+    cancelIcon: {
+      enabled: true,
+    },
+    scrollTo: { behavior: "smooth", block: "center" },
+  },
+  useModelOverlay: true,
+  keyboardNavigation: true,
+  exitOnEsc: true,
+};
 
 const Application = () => {
   const user = useUser();
@@ -33,6 +47,23 @@ const Application = () => {
   };
 
   const cardData = [
+    {
+      title: "Code Editor",
+      description:
+        "Write and run your code. If you get stuck, our Ai tools will get you back on track.",
+      image: "/assets/code-editor.jpg",
+      info: "Code Editor",
+      buttonText: "Start Coding",
+      path: "/app/problems",
+    },
+    {
+      title: "CodeChimp",
+      description: "Learn to code and clarify your doubts with CodeChimp.",
+      image: "/assets/codechimp.jpg",
+      info: "CodeChimp",
+      buttonText: "Ask Doubts",
+      path: "/app/codechimp",
+    },
     {
       title: "Study Planner",
       description:
@@ -52,16 +83,9 @@ const Application = () => {
       path: "/app/roadmap",
     },
     {
-      title: "CodeChimp",
-      description: "Learn to code and clarify your doubts with CodeChimp.",
-      image: "/assets/codechimp.jpg",
-      info: "CodeChimp",
-      buttonText: "Ask Doubts",
-      path: "/app/codechimp",
-    },
-    {
       title: "Interview Prep",
-      description: "Prepare for your next interview with Interview Prep.",
+      description:
+        "Prepare for your next interview with our interview prep tool.",
       image: "/assets/interview-prep.jpg",
       info: "Interview Prep",
       buttonText: "Prepare",
@@ -69,62 +93,81 @@ const Application = () => {
     },
   ];
   return (
-    <div className="flex flex-col gap-4 w-full h-full px-4 py-4">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold">Hello {name}!</h1>
-        <Button
-          variant="outline"
-          onClick={() => router.push("/docs")}
-          className="rounded-full"
-        >
-          <BookOpenText />
-          &nbsp;Docs
-        </Button>
-      </div>
-      <div className="h-full w-full overflow-y-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pr-2">
-        {cardData.map((card, index) => (
-          <Card className="h-full w-full px-0 py-0" key={index}>
-            <CardHeader>
-              <CardTitle className="flex justify-between items-center">
-                {card.title}
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild={true}>
-                      <Button variant="outline" size="icon" className="h-4 w-4">
-                        <Info />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" align="center" sideOffset={8}>
-                      <span className="text-sm bg-background p-2 rounded-md border border-border">
-                        {card.info}
-                      </span>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </CardTitle>
-              <CardDescription>{card.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="h-48 w-full">
-              <Image
-                className="rounded-md object-cover w-full h-full"
-                src={card.image}
-                alt={card.title}
-                width={600}
-                height={240}
-              />
-            </CardContent>
-            <CardFooter className="flex justify-end">
-              <Button
-                variant="outline"
-                onClick={() => handleRedirect(card.path)}
-              >
-                {card.buttonText}
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+    <div className="flex flex-col gap-4 w-full h-full px-4 py-2">
+      <ShepherdJourneyProvider>
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-semibold">Hello {name}!</h1>
+          <Provider />
+        </div>
+        <div className="h-full w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pr-2">
+          {cardData.map((card, index) => (
+            <Card className="h-full w-full px-0 py-0" key={index}>
+              <CardHeader>
+                <CardTitle className="flex justify-between items-center">
+                  {card.title}
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild={true}>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-4 w-4"
+                        >
+                          <Info />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="top" align="center" sideOffset={8}>
+                        <span className="text-sm bg-background p-2 rounded-md border border-border">
+                          {card.info}
+                        </span>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </CardTitle>
+                <CardDescription>{card.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="h-48 w-full">
+                <Image
+                  className="rounded-md object-cover w-full h-full"
+                  src={card.image}
+                  alt={card.title}
+                  width={600}
+                  height={240}
+                />
+              </CardContent>
+              <CardFooter className="flex justify-end">
+                <Button
+                  variant="outline"
+                  onClick={() => handleRedirect(card.path)}
+                  id={`info-${index}`}
+                >
+                  {card.buttonText}
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </ShepherdJourneyProvider>
     </div>
+  );
+};
+
+const Provider = () => {
+  const shepherd = useShepherd();
+
+  const tour = new shepherd.Tour({
+    ...tourOptions,
+    steps: newSteps,
+  });
+
+  return (
+    <Button
+      onClick={() => tour.start()}
+      variant="outline"
+      className="rounded-full"
+    >
+      Take a Tour
+    </Button>
   );
 };
 

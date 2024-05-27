@@ -9,6 +9,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { TooltipContent } from "@radix-ui/react-tooltip";
 import { Bug, Copy, HandHelping, HelpCircle, Lightbulb } from "lucide-react";
 import Markdown from "markdown-to-jsx";
 import { set } from "mongoose";
@@ -106,17 +112,36 @@ const Toolbar = (
 
   return (
     <div className="h-full w-full flex flex-col gap-2 items-center pl-1">
-      <Button size="icon" variant="outline">
+      <Button size="icon" variant="outline" id="editor-help">
         <HelpCircle size={24} />
       </Button>
       <div className="w-full bg-border h-0.5" />
       <div className="w-full flex flex-col gap-2 items-center">
         <Sheet>
-          <SheetTrigger className="w-full">
-            <Button size="icon" variant="outline" onClick={optimizeCode}>
-              <Lightbulb size={24} />
-            </Button>
-          </SheetTrigger>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <SheetTrigger className="w-full">
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={optimizeCode}
+                    id="editor-optimize"
+                  >
+                    <Lightbulb size={24} />
+                  </Button>
+                </SheetTrigger>
+              </TooltipTrigger>
+              <TooltipContent
+                side="left"
+                align="center"
+                sideOffset={24}
+                className="bg-background rounded-md p-2 border border-border"
+              >
+                Optimize Code
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
           <SheetContent>
             <SheetHeader>
               <SheetTitle>Code Optimizer</SheetTitle>
@@ -136,17 +161,33 @@ const Toolbar = (
                 >
                   <Copy size={16} />
                 </Button>
-                <Markdown>{optimizedCode.code}</Markdown>
+                <Markdown options={{ forceBlock: true }}>
+                  {optimizedCode.code}
+                </Markdown>
               </div>
             )}
           </SheetContent>
         </Sheet>
         <Sheet>
-          <SheetTrigger className="w-full">
-            <Button size="icon" variant="outline" onClick={debugCode}>
-              <Bug size={24} />
-            </Button>
-          </SheetTrigger>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <SheetTrigger className="w-full">
+                  <Button size="icon" variant="outline" onClick={debugCode}>
+                    <Bug size={24} />
+                  </Button>
+                </SheetTrigger>
+              </TooltipTrigger>
+              <TooltipContent
+                side="left"
+                align="center"
+                sideOffset={24}
+                className="bg-background rounded-md p-2 border border-border"
+              >
+                Debug Code
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
           <SheetContent>
             <SheetHeader>
               <SheetTitle>Code Debugger</SheetTitle>
@@ -166,17 +207,33 @@ const Toolbar = (
                 >
                   <Copy size={16} />
                 </Button>
-                <Markdown>{debuggedCode.code}</Markdown>
+                <Markdown options={{ forceBlock: true }}>
+                  {debuggedCode.code}
+                </Markdown>
               </div>
             )}
           </SheetContent>
         </Sheet>
         <Sheet>
-          <SheetTrigger className="w-full">
-            <Button size="icon" variant="outline" onClick={getHelp}>
-              <HandHelping size={24} />
-            </Button>
-          </SheetTrigger>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <SheetTrigger className="w-full">
+                  <Button size="icon" variant="outline" onClick={getHelp}>
+                    <HandHelping size={24} />
+                  </Button>
+                </SheetTrigger>
+              </TooltipTrigger>
+              <TooltipContent
+                side="left"
+                align="center"
+                sideOffset={24}
+                className="bg-background rounded-md p-2 border border-border"
+              >
+                Get Help
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
           <SheetContent>
             <SheetHeader>
               <SheetTitle>Code Helper</SheetTitle>
@@ -185,7 +242,12 @@ const Toolbar = (
               <div>Loading...</div>
             ) : (
               <div className="w-full h-fit my-2 py-2 px-2 mx-2 bg-neutral-900 p-2 overflow-x-auto overflow-y-auto rounded-sm relative">
-                <Markdown className="w-full text-sm">{help.help}</Markdown>
+                <Markdown
+                  className="w-full text-sm"
+                  options={{ forceBlock: true }}
+                >
+                  {help.help}
+                </Markdown>
               </div>
             )}
           </SheetContent>
