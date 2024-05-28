@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils";
 import { SignInButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const routes = [
     { name: "Home", path: "/" },
-    { name: "Docs", path: "/docs" },
     { name: "Features", path: "/features" },
     { name: "About", path: "/about" },
+    { name: "Docs", path: "/docs" },
   ];
 
   let currentPath = usePathname();
