@@ -1,10 +1,10 @@
 export const newSteps = [
   {
-    id: "intro",
+    id: "step-0",
     title: "Welcome to CodeMonkey",
-    text: "CodeEditor is the core feature of CodeMonkey platform. Here you can practice coding problems, optimize your code, and debug your code. If got stuck, you can always ask for help to get hints.",
+    text: "Welcome to CodeMonkey platform. Let's start exploring the platform. You can even use your keyboard to navigate through the steps. Press Left or Right arrow key to navigate through the steps, and Esc key to close the tour.",
     attachTo: {
-      element: "#info-0",
+      element: "",
       on: "top",
     },
     buttons: [
@@ -24,6 +24,29 @@ export const newSteps = [
   },
   {
     id: "step-1",
+    title: "Welcome to CodeMonkey",
+    text: "CodeEditor is the core feature of CodeMonkey platform. Here you can practice coding problems, optimize your code, and debug your code. If got stuck, you can always ask for help to get hints.",
+    attachTo: {
+      element: "#info-0",
+      on: "top",
+    },
+    buttons: [
+      {
+        text: "Back",
+        action: function () {
+          return this.back();
+        },
+      },
+      {
+        text: "Next",
+        action: function () {
+          return this.next();
+        },
+      },
+    ],
+  },
+  {
+    id: "step-2",
     title: "CodeChimp",
     text: "CodeChimp is an AI that can help you learn to code. It can also help you to understand any piece of code.",
     attachTo: {
@@ -46,7 +69,7 @@ export const newSteps = [
     ],
   },
   {
-    id: "step-2",
+    id: "step-3",
     title: "Study Planner",
     text: "Study Planner is an under development feature that will help you to plan your study schedule, and track your progress over time using a calendar and data analytics.",
     attachTo: {
@@ -69,7 +92,7 @@ export const newSteps = [
     ],
   },
   {
-    id: "step-3",
+    id: "step-4",
     title: "Roadmap Planner",
     text: "Roadmap Planner is an under development feature that will help you to plan your career path, and track your progress over time using StudyPlanner. Note: It's the core of Study Planner.",
     attachTo: {
@@ -92,7 +115,7 @@ export const newSteps = [
     ],
   },
   {
-    id: "step-4",
+    id: "step-5",
     title: "Interview Prep",
     text: "Interview Prep is an under development feature that will help you to prepare for job interviews. It will have a collection of interview questions, and a platform to practice coding interviews.",
     attachTo: {
@@ -115,7 +138,7 @@ export const newSteps = [
     ],
   },
   {
-    id: "step-5",
+    id: "step-6",
     title: "Code Editor",
     text: "Let's start exploring the CodeEditor. Click on the CodeEditor tab to continue, and then click on the Next button to explore the CodeEditor.",
     attachTo: {
@@ -129,16 +152,17 @@ export const newSteps = [
           return this.back();
         },
       },
+      // Send the user to a different page
       {
         text: "Next",
         action: function () {
-          return this.next();
+          return this.next() && window.location.replace("/app/problems");
         },
       },
     ],
   },
   {
-    id: "step-6",
+    id: "step-7",
     title: "Problem Set",
     text: "Problem Set is the place where you can pick a problem to solve. Pick a problem you want to solve, and then click on the Next button to continue.",
     attachTo: {
@@ -161,7 +185,7 @@ export const newSteps = [
     ],
   },
   {
-    id: "step-7",
+    id: "step-8",
     title: "CodeEditor",
     text: "This is the CodeEditor. Here you can write your code, and run it to see the output. Click on the Run button to run the code, and it'll show the output on the right side. Close the Output tab to continue, and then click on the Next button to continue.",
     attachTo: {
@@ -184,7 +208,7 @@ export const newSteps = [
     ],
   },
   {
-    id: "step-8",
+    id: "step-9",
     title: "CodeEditor Docs",
     text: "We're currently working on the documentation for the CodeEditor. It'll be available soon. Click on the Next button to continue.",
     attachTo: {
@@ -207,7 +231,7 @@ export const newSteps = [
     ],
   },
   {
-    id: "step-9",
+    id: "step-10",
     title: "Editor Tools: Optimize",
     text: "The CodeEditor has a collection of tools that can help you to optimize your code, ask for help, and debug your code. Click on the Optimize button to continue, and then click on the Next button to continue.",
     attachTo: {
@@ -230,7 +254,7 @@ export const newSteps = [
     ],
   },
   {
-    id: "step-10",
+    id: "step-11",
     title: "CodeChimp",
     text: "Now, let's explore the CodeChimp. Click on the CodeChimp tab to continue, and then click on the Next button to explore the CodeChimp.",
     attachTo: {
@@ -253,7 +277,7 @@ export const newSteps = [
     ],
   },
   {
-    id: "step-11",
+    id: "step-12",
     title: "Send Prompt",
     text: "CodeChimp can help you to understand any piece of code. If you've a code snippet you want to understand, paste it in the right text area, and then pass your prompt in the below input field, and hit Enter to get the response. Once you get the response, click on the Next button to continue.",
     attachTo: {
@@ -276,7 +300,7 @@ export const newSteps = [
     ],
   },
   {
-    id: "step-12",
+    id: "step-13",
     title: "Thanks for Exploring",
     text: "Thanks for exploring the CodeMonkey platform. We're continuously working on improving the platform and adding tons of new features. If you've any feedback or suggestions, feel free to share with us. Click on the Exit button to close the tour.",
     attachTo: {

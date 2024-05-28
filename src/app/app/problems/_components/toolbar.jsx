@@ -133,7 +133,7 @@ const Toolbar = (
                 </SheetTrigger>
               </TooltipTrigger>
               <TooltipContent
-                side="left"
+                side="right"
                 align="center"
                 sideOffset={24}
                 className="bg-background rounded-md p-2 border border-border"
@@ -142,7 +142,7 @@ const Toolbar = (
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <SheetContent>
+          <SheetContent side="left">
             <SheetHeader>
               <SheetTitle>Code Optimizer</SheetTitle>
             </SheetHeader>
@@ -179,7 +179,7 @@ const Toolbar = (
                 </SheetTrigger>
               </TooltipTrigger>
               <TooltipContent
-                side="left"
+                side="right"
                 align="center"
                 sideOffset={24}
                 className="bg-background rounded-md p-2 border border-border"
@@ -188,7 +188,7 @@ const Toolbar = (
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <SheetContent>
+          <SheetContent side="left">
             <SheetHeader>
               <SheetTitle>Code Debugger</SheetTitle>
             </SheetHeader>
@@ -225,7 +225,7 @@ const Toolbar = (
                 </SheetTrigger>
               </TooltipTrigger>
               <TooltipContent
-                side="left"
+                side="right"
                 align="center"
                 sideOffset={24}
                 className="bg-background rounded-md p-2 border border-border"
@@ -234,7 +234,7 @@ const Toolbar = (
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <SheetContent>
+          <SheetContent side="left">
             <SheetHeader>
               <SheetTitle>Code Helper</SheetTitle>
             </SheetHeader>

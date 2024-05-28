@@ -39,7 +39,8 @@ const MainPage = () => {
   return (
     <div className="flex flex-col w-full h-[calc(100vh-64px)]">
       <div className="w-full py-4 px-20">
-        <div className="flex items-center justify-center w-full rounded-3xl bg-opacity-10 h-[calc(100vh-108px)] shadow-lg shadow-border py-8 px-4 bg-background duration-300 mt-2">
+        {/* Edit the shadow to make it more prominent and visible on the upper side too */}
+        <div className="flex items-center justify-center w-full rounded-3xl bg-opacity-10 h-[calc(100vh-108px)] shadow-border py-8 px-4 bg-background duration-300 mt-2 shadow-lg transition-all border border-border">
           <div className="flex flex-col w-3/5 h-full p-8 items-start justify-center py-12">
             <h1 className="text-4xl font-extrabold underline mb-2">
               <span className="text-indigo-600">Code</span>Monkey!

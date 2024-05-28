@@ -94,10 +94,10 @@ body,
 }
 
 .shepherd-button {
-  background: #4a5ca5;
+  background: #b6b6b6;
   border: 0;
   border-radius: 5px;
-  color: hsla(0, 0%, 100%, 0.75);
+  color: hsla(0, 0%, 0%, 0.856);
   cursor: pointer;
   margin-right: 0.5rem;
   margin-top: 0.4rem;
@@ -106,7 +106,7 @@ body,
 }
 
 .shepherd-button:not(:disabled):hover {
-  background: #25305a;
+  background: #575757;
   color: hsla(0, 0%, 100%, 0.75);
 }
 
@@ -134,7 +134,7 @@ body,
 .shepherd-cancel-icon {
   background: transparent;
   border: none;
-  color: white;
+  color: rgb(255, 255, 255);
   cursor: pointer;
   font-size: 2em;
   font-weight: 400;
@@ -144,7 +144,7 @@ body,
 }
 
 .shepherd-cancel-icon:hover {
-  color: rgba(0, 0, 0, 0.75);
+  color: rgba(187, 187, 187, 0.911);
 }
 
 .shepherd-has-title .shepherd-content .shepherd-cancel-icon {
@@ -152,14 +152,14 @@ body,
 }
 
 .shepherd-has-title .shepherd-content .shepherd-cancel-icon:hover {
-  color: rgba(0, 0, 0, 0.75);
+  color: rgba(102, 102, 102, 0.75);
 }
 
 .shepherd-title {
   color: #d5d8db;
   display: flex;
   flex: 1 0 auto;
-  font-size: 1rem;
+  font-size: 1.5em;
   font-weight: 600;
   font-family: "Lato", serif;
   margin: 0;
@@ -177,8 +177,9 @@ body,
 }
 
 .shepherd-has-title .shepherd-content .shepherd-header {
-  background: #303c6c;
+  background: #050505fb;
   padding: 1em;
+  border-bottom: 1px solid #969696b9;
 }
 
 .shepherd-text {
@@ -203,8 +204,9 @@ body,
 }
 
 .shepherd-element {
-  background: #303c6c;
+  background: #050505fb;
   border-radius: 10px;
+  border: 1px solid #969696b9;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   max-width: 400px;
   opacity: 0;
@@ -242,9 +244,11 @@ body,
 }
 
 .shepherd-arrow:before {
-  background: #303c6c;
+  background: #050505fb;
   content: "";
   transform: rotate(45deg);
+  border-right: 1px solid #969696b9;
+  border-bottom: 1px solid #969696b9;
 }
 
 .shepherd-element[data-popper-placement^="top"] > .shepherd-arrow {
@@ -269,7 +273,7 @@ body,
 
 .shepherd-element.shepherd-has-title[data-popper-placement^="bottom"]
   > .shepherd-arrow:before {
-  background-color: #303c6c;
+  background-color: #050505fb;
 }
 
 .shepherd-target-click-disabled.shepherd-enabled.shepherd-target,

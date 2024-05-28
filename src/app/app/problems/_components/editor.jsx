@@ -125,7 +125,7 @@ export const EditorComponent = ({ data, id }) => {
 
   return (
     <div className="h-full w-full flex flex-col gap-1">
-      <div className="min-h-[42px] w-full flex justify-between items-center px-4 pt-2">
+      <div className="min-h-[42px] w-full flex justify-between items-center px-4 pt-0">
         <Select onValueChange={handleLanguageChange} className="text-xs">
           <SelectTrigger className="text-xs w-1/5 h-[32px] rounded-sm">
             <SelectValue placeholder={language} />
@@ -148,7 +148,7 @@ export const EditorComponent = ({ data, id }) => {
               </Button>
             </SheetTrigger>
             {loadingResult ? (
-              <SheetContent>
+              <SheetContent side="bottom">
                 <SheetHeader>
                   <SheetTitle>Result of your submission</SheetTitle>
                 </SheetHeader>
@@ -157,7 +157,7 @@ export const EditorComponent = ({ data, id }) => {
                 </div>
               </SheetContent>
             ) : (
-              <SheetContent>
+              <SheetContent side="bottom">
                 <SheetHeader>
                   <SheetTitle>Result of your submission</SheetTitle>
                   <SheetDescription>
