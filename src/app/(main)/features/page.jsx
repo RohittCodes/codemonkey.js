@@ -1,4 +1,4 @@
-const documentation = () => {
+const FeaturesPage = () => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       Under Development 🚧👷
@@ -6,4 +6,4 @@ const documentation = () => {
   );
 };
 
-export default documentation;
+export default FeaturesPage;
