@@ -1,9 +1,5 @@
 const documentation = () => {
-  return (
-    <div className="w-full h-full flex flex-col items-center justify-center">
-      Under Development 🚧👷
-    </div>
-  );
+  return <div className="flex flex-col w-full h-full">Document</div>;
 };
 
 export default documentation;
