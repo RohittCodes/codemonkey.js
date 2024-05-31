@@ -16,24 +16,11 @@ import {
 } from "@/components/ui/tooltip";
 import { useUser } from "@clerk/nextjs";
 import { TooltipContent } from "@radix-ui/react-tooltip";
-import { BookOpenText, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ShepherdJourneyProvider, useShepherd } from "react-shepherd";
-import { newSteps } from "./_components/steps";
-
-const tourOptions = {
-  steps: newSteps,
-  defaultStepOptions: {
-    cancelIcon: {
-      enabled: true,
-    },
-    scrollTo: { behavior: "smooth", block: "center" },
-  },
-  useModelOverlay: true,
-  keyboardNavigation: true,
-  exitOnEsc: true,
-};
+import { Provider } from "./_components/steps";
 
 const Application = () => {
   const user = useUser();
@@ -149,25 +136,6 @@ const Application = () => {
         </div>
       </ShepherdJourneyProvider>
     </div>
-  );
-};
-
-const Provider = () => {
-  const shepherd = useShepherd();
-
-  const tour = new shepherd.Tour({
-    ...tourOptions,
-    steps: newSteps,
-  });
-
-  return (
-    <Button
-      onClick={() => tour.start()}
-      variant="outline"
-      className="rounded-full"
-    >
-      Take a Tour
-    </Button>
   );
 };
 
