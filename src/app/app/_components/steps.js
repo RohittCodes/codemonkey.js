@@ -9,7 +9,7 @@ export const Provider = () => {
     {
       id: "step-0",
       title: "Welcome to CodeMonkey",
-      text: "Welcome to CodeMonkey platform. Let's start exploring the platform. You can even use your keyboard to navigate through the steps. Press Left or Right arrow key to navigate through the steps, and Esc key to close the tour.",
+      text: "Welcome to CodeMonkey platform. Let's start exploring the platform. You can even use your keyboard to navigate through the steps. Press Left ⬅️ or Right ➡️ arrow key to navigate through the steps, and Esc key to close the tour.",
       buttons: [
         {
           text: "Exit",
@@ -143,7 +143,7 @@ export const Provider = () => {
     {
       id: "step-6",
       title: "Code Editor",
-      text: "Let's start exploring the CodeEditor. Click on the CodeEditor tab to continue, and then click on the Next button to explore the CodeEditor.",
+      text: "Let's start exploring the CodeEditor. Click Next to continue.",
       attachTo: {
         element: "#side-Code",
         on: "top",
@@ -174,7 +174,7 @@ export const Provider = () => {
     {
       id: "step-7",
       title: "Problem Set",
-      text: "Problem Set is the place where you can pick a problem to solve. Pick a problem you want to solve, and then click on the Next button to continue.",
+      text: "Problem Set is the place where you can pick a problem to solve. Click next to continue.",
       attachTo: {
         element: "#problem-1",
         on: "top",
