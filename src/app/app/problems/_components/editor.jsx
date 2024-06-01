@@ -34,7 +34,9 @@ export const EditorComponent = ({ data, id }) => {
   useEffect(() => {
     // data passed here is an array of objects, which includes the language and the template code, so we need to extract the template code
     if (data) {
-      const templateCode = data.find((item) => item.language === language);
+      console.log(data)
+      const templateCode = data;
+      console.log(templateCode)
       setTemplate(templateCode.code);
     }
   }, [data, language]);
@@ -132,6 +134,10 @@ export const EditorComponent = ({ data, id }) => {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="javascript">JavaScript</SelectItem>
+            <SelectItem value="python">Python</SelectItem>
+            <SelectItem value="java">Java</SelectItem>
+            <SelectItem value="cpp">C++</SelectItem>
+            <SelectItem value="csharp">C#</SelectItem>
           </SelectContent>
         </Select>
         <div className="flex gap-1">
@@ -152,7 +158,7 @@ export const EditorComponent = ({ data, id }) => {
                 <SheetHeader>
                   <SheetTitle>Result of your submission</SheetTitle>
                 </SheetHeader>
-                <div className="w-full h-32 flex items-center justify-center">
+                <div className="w-full h-32 flex items-center justify-center text-white">
                   Loading...
                 </div>
               </SheetContent>
@@ -172,7 +178,7 @@ export const EditorComponent = ({ data, id }) => {
                           key={index}
                           className="w-full h-8 flex items-center justify-between px-2"
                         >
-                          <span className="text-xs w-1/2">
+                          <span className="text-xs w-1/2 text-white">
                             Output Received: {item.output}
                           </span>
                           <span
